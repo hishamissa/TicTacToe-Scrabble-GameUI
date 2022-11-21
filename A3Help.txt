@@ -1,0 +1,20 @@
+Notes from the A3 Help lecture:
+
+0. Read the assignment
+1. Clone and run the example
+2. To run on my mac, download java 8 or higher, gradle build on the docker,
+    than run it on my mac terminal with the run command 
+    (use homebrew on my Mac) 
+3. Inspect Kakuro Game class and BoardGame class so you understand what was done
+4. Refactor your Tic Tac Toe to extend BoardGame
+    - decide what package name
+    - stub out the tic tac toe with required overrides
+    - stub out a textUI to run it
+    - finish TTT so that it works properly with textUI
+5. Write the numerical tic tac toe (NEW FILES)
+    - more or less the same process as writing TTT
+6. Create the GUI (after both games working)
+    - look at KakuroView for game specific ideas about the GUI
+    - look at GameUI for the main frame
+
+Run A3 using (java -cp build/classes/java/main tictactoe.TextUI)

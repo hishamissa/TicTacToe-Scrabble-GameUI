@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.45.1">
+<file name="/course/coursework/A3/src/main/java/boardgame/BoardGame.java">
+</file>
+<file name="/course/coursework/A3/src/main/java/boardgame/Grid.java">
+</file>
+<file name="/course/coursework/A3/src/main/java/boardgame/Saveable.java">
+</file>
+<file name="/course/coursework/A3/src/main/java/boardgame/ui/PositionAwareButton.java">
+</file>
+<file name="/course/coursework/A3/src/main/java/tictactoe/Board.java">
+</file>
+<file name="/course/coursework/A3/src/main/java/tictactoe/SaveToFile.java">
+</file>
+<file name="/course/coursework/A3/src/main/java/tictactoe/Saveable.java">
+</file>
+<file name="/course/coursework/A3/src/main/java/tictactoe/TextUI.java">
+</file>
+<file name="/course/coursework/A3/src/main/java/tictactoe/TicTacToe.java">
+</file>
+</checkstyle>
