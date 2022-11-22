@@ -32,22 +32,30 @@ public class TextUI {
     }
 
     public void play() {
+        int playAgain = 1;
         String player = welcomeMessage();
-        while(game.getWinner() == -1) {
-            System.out.print("Player " + player); 
-            System.out.print(" enter a position between 1 and 9 ");
-            System.out.print("(Or enter 'S' to save the current board and quit): ");
-            setBoard(player);
-            System.out.println(game);
-            game.setTurn(player);
-            player = game.getNextTurn();
-        }
-        if (game.getWinner() == 1) {
-            System.out.println("Winner is Player 'X'!\n");
-        } else if (game.getWinner() == 2) {
-            System.out.println("Winner is Player 'O'!\n");
-        } else if (game.getWinner() == 0) {
-            System.out.println("Game is a Tie.\n");
+        while(playAgain == 1) {
+            int winner = -1;
+            while(winner == -1) {
+                System.out.print("Player " + player); 
+                System.out.print(" enter a position between 1 and 9 ");
+                System.out.print("(Or enter 'S' to save the current board and quit): ");
+                setBoard(player);
+                System.out.println(game);
+                game.setTurn(player);
+                player = game.getNextTurn();
+                    if (game.getWinner() == 1) {
+                        System.out.println("Winner is Player 'X'!\n");
+                        winner = 1;
+                    } else if (game.getWinner() == 2) {
+                        System.out.println("Winner is Player 'O'!\n");
+                        winner = 2;
+                    } else if (game.getWinner() == 0) {
+                        System.out.println("Game is a Tie.\n");
+                        winner = 0;
+                    }
+            }
+            playAgain = restartGame();
         }
     }
 
@@ -56,8 +64,8 @@ public class TextUI {
      */
     public void setBoard(String player) {
         while(true) {
-            String position = userInput.nextLine().trim();
-            System.out.println("Position before checkBoard = " + position);
+            String position; 
+            position = userInput.nextLine().trim();
             while (game.checkBoard(position) == "X" || game.checkBoard(position) == "O") {
                 System.out.print("Position is occupied. Try again: ");
                 position = userInput.nextLine().trim();
@@ -96,6 +104,42 @@ public class TextUI {
         SaveToFile.save(game, filename, "assets");
         System.out.println("Game saved!");
         System.exit(0);
+    }
+
+    public void resetGrid() {
+        game.takeTurn(1,1," ");
+        game.takeTurn(2,1," ");
+        game.takeTurn(3,1," ");
+        game.takeTurn(1,2," ");
+        game.takeTurn(2,2," ");
+        game.takeTurn(3,2," ");
+        game.takeTurn(1,3," ");
+        game.takeTurn(2,3," ");
+        game.takeTurn(3,3," ");
+    }
+
+    public int restartGame() {
+        int restart = 0;
+        while (true) {
+            System.out.print("Would you like to play again? If so press 1.");
+            System.out.print(" Otherwise press 2: ");
+            int playAgain;
+            playAgain = userInput.nextInt();
+            switch(playAgain) {
+                case 1:
+                    restart = 1;
+                    break;
+                case 2:
+                    restart = 2;
+                    break;
+                default:
+                    System.out.println("Invalid option. Try again.");
+                    continue;
+            }
+            resetGrid();
+            return restart;
+        }
+
     }
 
     public static void main(String[] args) {

@@ -101,6 +101,7 @@ public class TicTacToe extends boardgame.BoardGame implements Saveable {
      * This method will parse the board and create a 
      * csv delimited string to write to a file
      */
+    @Override
     public String getStringToSave() {
         return parsedBoard;
     }
@@ -108,6 +109,7 @@ public class TicTacToe extends boardgame.BoardGame implements Saveable {
      * Method that takes the loaded game board and parses it
      * and creates the new game board
      */
+    @Override
     public void loadSavedString(String toLoad) {
         Scanner parse = new Scanner(toLoad).useDelimiter(",|\\n");
         parse.nextLine(); //skips the first line which represents the next players turn
