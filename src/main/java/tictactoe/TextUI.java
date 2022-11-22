@@ -57,6 +57,7 @@ public class TextUI {
     public void setBoard(String player) {
         while(true) {
             String position = userInput.nextLine().trim();
+            System.out.println("Position before checkBoard = " + position);
             while (game.checkBoard(position) == "X" || game.checkBoard(position) == "O") {
                 System.out.print("Position is occupied. Try again: ");
                 position = userInput.nextLine().trim();
@@ -81,7 +82,6 @@ public class TextUI {
             case "9": game.takeTurn(3,3,player);
                 break;
             case "S": saveCase(player);
-            break;
             default: System.out.println("Invalid input. Try again: ");
                 continue; } break; } }
     /*

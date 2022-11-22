@@ -110,18 +110,11 @@ public class TicTacToe extends boardgame.BoardGame implements Saveable {
      */
     public void loadSavedString(String toLoad) {
         Scanner parse = new Scanner(toLoad).useDelimiter(",|\\n");
-        parse.nextLine();
+        parse.nextLine(); //skips the first line which represents the next players turn
         String player = parse.next();
         takeTurn(1,1,player);
         player = parse.next();
-        //not working, fix tomorrow
-        if(player == "") {
-            player.replace("", " ").trim();
-            takeTurn(2,1,player);
-            System.out.println("IF STATEMENT!")
-        } else {
-            takeTurn(2,1,player);
-        }
+        takeTurn(2,1,player);
         player = parse.next();
         takeTurn(3,1,player);
         player = parse.next();
@@ -130,13 +123,12 @@ public class TicTacToe extends boardgame.BoardGame implements Saveable {
         takeTurn(2,2,player);
         player = parse.next();
         takeTurn(3,2,player);
-        // player = parse.next();
-        // takeTurn(1,3,player);
-        // player = parse.next();
-        // takeTurn(2,3,player);
-        // player = parse.next();
-        // takeTurn(3,3,player);
-        //System.out.println("Position 1,1 = " + checkBoard("1"));
+        player = parse.next();
+        takeTurn(1,3,player);
+        player = parse.next();
+        takeTurn(2,3,player);
+        player = parse.next();
+        takeTurn(3,3,player);
     }
     /*
      * Method that parses the board and creates a
