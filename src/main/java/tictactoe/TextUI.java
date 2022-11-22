@@ -10,11 +10,33 @@ public class TextUI {
                                          //which calls super to make a grid
     private Board board = new Board(3,3);
 
+    public String welcomeMessage() {
+        System.out.println("Welcome to 3x3 Tic Tac Toe!");
+        System.out.println("1. Start a new game");
+        System.out.println("2. Load a previous game");
+        while (true) {
+            System.out.print("Enter an option (1 or 2) to continue: ");
+            String menuOption = userInput.nextLine().trim();
+            switch(menuOption) {
+                case "1":
+                    return "X"; //new game starts on X by default 
+                case "2":
+                   String loadedGame = SaveToFile.load(game, "savedBoard.csv", "assets");
+                   String player = loadedGame.substring(0, 1);
+                   return player; 
+                default:
+                    System.out.println("Invalid option. Try again.");
+                    continue;
+            }
+        }
+    }
+
     public void play() {
-        String player = "X";
+        String player = welcomeMessage();
         while(game.getWinner() == -1) {
             System.out.print("Player " + player); 
-            System.out.print(" enter a position between 1 and 9: ");
+            System.out.print(" enter a position between 1 and 9 ");
+            System.out.print("(Or enter 'S' to save the current board and quit): ");
             setBoard(player);
             System.out.println(game);
             game.setTurn(player);
@@ -22,9 +44,6 @@ public class TextUI {
         }
         if (game.getWinner() == 1) {
             System.out.println("Winner is Player 'X'!\n");
-            
-            game.parser(player);
-            SaveToFile.save(game, "savedBoard.csv", "assets");
         } else if (game.getWinner() == 2) {
             System.out.println("Winner is Player 'O'!\n");
         } else if (game.getWinner() == 0) {
@@ -37,11 +56,10 @@ public class TextUI {
      */
     public void setBoard(String player) {
         while(true) {
-            String position;
-            position = userInput.next();
+            String position = userInput.nextLine().trim();
             while (game.checkBoard(position) == "X" || game.checkBoard(position) == "O") {
-                System.out.println("Position is occupied. Try again: ");
-                position = userInput.next();
+                System.out.print("Position is occupied. Try again: ");
+                position = userInput.nextLine().trim();
             }
         switch(position) { 
             case "1": game.takeTurn(1,1,player);
@@ -62,8 +80,23 @@ public class TextUI {
                 break;
             case "9": game.takeTurn(3,3,player);
                 break;
+            case "S": saveCase(player);
+            break;
             default: System.out.println("Invalid input. Try again: ");
                 continue; } break; } }
+    /*
+     * Method is user enters 'S' to save
+     * during the game
+     */
+    public void saveCase(String player) {
+        game.parser(player);
+        String filename = "";
+        System.out.print("Enter the name of the file to save the game to: ");
+        filename = userInput.next().trim();
+        SaveToFile.save(game, filename, "assets");
+        System.out.println("Game saved!");
+        System.exit(0);
+    }
 
     public static void main(String[] args) {
         TextUI tester = new TextUI();

@@ -14,4 +14,17 @@ public class SaveToFile {
             System.out.println("Error");
         }
     }
+
+    public static String load(Saveable toSave, String filename, String relativePath) {
+        Path path = FileSystems.getDefault().getPath(relativePath, filename);
+        String fileLines = "";
+        try {
+            fileLines = String.join("\n", Files.readAllLines(path));
+            toSave.loadSavedString(fileLines);
+            return fileLines;
+        } catch (IOException e) {
+            System.out.println("Error reading");
+        }
+    return fileLines;        
+    }
 }

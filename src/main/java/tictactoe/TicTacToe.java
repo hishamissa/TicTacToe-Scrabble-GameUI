@@ -1,5 +1,7 @@
 package tictactoe;
 
+import java.util.Scanner;
+
 public class TicTacToe extends boardgame.BoardGame implements Saveable {
 
     private String nextTurn;
@@ -102,9 +104,39 @@ public class TicTacToe extends boardgame.BoardGame implements Saveable {
     public String getStringToSave() {
         return parsedBoard;
     }
-
+    /*
+     * Method that takes the loaded game board and parses it
+     * and creates the new game board
+     */
     public void loadSavedString(String toLoad) {
-
+        Scanner parse = new Scanner(toLoad).useDelimiter(",|\\n");
+        parse.nextLine();
+        String player = parse.next();
+        takeTurn(1,1,player);
+        player = parse.next();
+        //not working, fix tomorrow
+        if(player == "") {
+            player.replace("", " ").trim();
+            takeTurn(2,1,player);
+            System.out.println("IF STATEMENT!")
+        } else {
+            takeTurn(2,1,player);
+        }
+        player = parse.next();
+        takeTurn(3,1,player);
+        player = parse.next();
+        takeTurn(1,2,player);
+        player = parse.next();
+        takeTurn(2,2,player);
+        player = parse.next();
+        takeTurn(3,2,player);
+        // player = parse.next();
+        // takeTurn(1,3,player);
+        // player = parse.next();
+        // takeTurn(2,3,player);
+        // player = parse.next();
+        // takeTurn(3,3,player);
+        //System.out.println("Position 1,1 = " + checkBoard("1"));
     }
     /*
      * Method that parses the board and creates a
