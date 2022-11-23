@@ -7,6 +7,7 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
     private Scanner userInput = new Scanner(System.in);
     private String parsedBoard;
     private int nextTurn;
+    public int number;
 
     public NumericalTTT(int wide, int tall) {
         super(wide, tall);
@@ -76,90 +77,106 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
      * Method to determine which position on the board the user
      * wants to play their number. This method will call another method
      * to actually determine what number they will choose
+     * 
+     *  || METHOD IS TOO MANY LINES!!! FIX LATER ||
      */
-    public void positionOnBoard(int player) {
+    public int positionOnBoard(int player) {
+        int positionOnBoard = 0;
         while(true) {
             String position; 
             position = userInput.nextLine().trim();
             switch(position) {
                 case "1": numberSelect(player, 1);
-                    break;
+                          positionOnBoard = 1;
+                          break;
                 case "2": numberSelect(player, 2);
-                    break;   
+                          positionOnBoard = 2;
+                          break;
                 case "3": numberSelect(player, 3);
-                    break;
+                          positionOnBoard = 3;
+                          break;
                 case "4": numberSelect(player, 4);
-                    break;
+                          positionOnBoard = 4;
+                          break;
                 case "5": numberSelect(player, 5);
-                    break;
+                          positionOnBoard = 5;
+                          break;
                 case "6": numberSelect(player, 6);
-                    break;
+                          positionOnBoard = 6;
+                          break;
                 case "7": numberSelect(player, 7);
-                    break;
+                          positionOnBoard = 7;
+                          break;
                 case "8": numberSelect(player, 8);
-                    break;
+                          positionOnBoard = 8;
+                          break;
                 case "9": numberSelect(player, 9);
-                    break;
+                          positionOnBoard = 9;
+                          break;
                 default:
-                    System.out.println("Invalid input. Must be 1 to 9. Try again.");
+                    System.out.print("Invalid input. Must be 1 to 9. Try again: ");
                     continue;                
             }
             break;
         }
+        return positionOnBoard;
     }
 
-    public void numberSelect(int player, int position) {
+    public int numberSelect(int player, int position) {
         if (player == 0) {
-            numberSelectOdd(player);
+            number = numberSelectOdd(player);
         } else if (player == 1) {
-            numberSelectEven(player);
+            number = numberSelectEven(player);
         }
+        return position;
     }
 
-    public void numberSelectOdd(int player) {
+    public int numberSelectOdd(int player) {
         System.out.print("Now enter an odd number (1,3,5,7,9): ");
         while(true) {
             String position; 
             position = userInput.nextLine().trim();
             switch(position) {
-                case "1": 
-                    break;
-                case "3": 
-                    break;   
-                case "5": 
-                    break;
-                case "7": 
-                    break;
-                case "9": 
-                    break;
+                case "1": return 1;
+                    
+                case "3": return 3;
+                       
+                case "5": return 5;
+                    
+                case "7": return 7;
+                    
+                case "9": return 9;
+                    
                 default:
                     System.out.print("Invalid input. Must be 1 to 9 and ODD. Try again: ");
                     continue;                
             }
-            break;
         }
     }
 
-    public void numberSelectEven(int player) {
+    public int numberSelectEven(int player) {
         System.out.print("Now enter an even number (2,4,6,8): ");
         while(true) {
             String position; 
             position = userInput.nextLine().trim();
             switch(position) {
-                case "2": 
-                    break;
-                case "4": 
-                    break;   
-                case "6": 
-                    break;
-                case "8": 
-                    break;
+                case "2": return 2;
+                    
+                case "4": return 4;
+                       
+                case "6": return 6;
+                    
+                case "8": return 8;
+                    
                 default:
                     System.out.print("Invalid input. Must be 1 to 9 and EVEN. Try again: ");
                     continue;                
             }
-            break;
         }
+    }
+
+    public int selection(int value) {
+        return value;
     }
     
 }
