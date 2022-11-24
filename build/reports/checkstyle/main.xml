@@ -11,7 +11,7 @@
 <file name="/course/coursework/A3/src/main/java/tictactoe/Board.java">
 </file>
 <file name="/course/coursework/A3/src/main/java/tictactoe/NumericalTTT.java">
-<error line="80" column="5" severity="error" message="Method positionOnBoard length is 41 lines (max allowed is 30)." source="com.puppycrawl.tools.checkstyle.checks.sizes.MethodLengthCheck"/>
+<error line="109" column="5" severity="error" message="Method positionOnBoard length is 45 lines (max allowed is 30)." source="com.puppycrawl.tools.checkstyle.checks.sizes.MethodLengthCheck"/>
 </file>
 <file name="/course/coursework/A3/src/main/java/tictactoe/SaveToFile.java">
 </file>
@@ -20,6 +20,7 @@
 <file name="/course/coursework/A3/src/main/java/tictactoe/TextUI.java">
 </file>
 <file name="/course/coursework/A3/src/main/java/tictactoe/TextUINum.java">
+<error line="41" column="5" severity="error" message="Method setPosition length is 40 lines (max allowed is 30)." source="com.puppycrawl.tools.checkstyle.checks.sizes.MethodLengthCheck"/>
 </file>
 <file name="/course/coursework/A3/src/main/java/tictactoe/TicTacToe.java">
 </file>

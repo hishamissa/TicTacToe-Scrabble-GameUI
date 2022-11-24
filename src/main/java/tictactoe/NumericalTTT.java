@@ -1,13 +1,15 @@
 package tictactoe;
 
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class NumericalTTT extends boardgame.BoardGame implements Saveable {
 
     private Scanner userInput = new Scanner(System.in);
     private String parsedBoard;
     private int nextTurn;
-    public int number;
+    private int number;
+    private int counter = 0;
 
     public NumericalTTT(int wide, int tall) {
         super(wide, tall);
@@ -36,6 +38,30 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
 
     @Override
     public int getWinner() {
+        int integer = 0;
+        if (checkBoard("1") + checkBoard("2") + checkBoard("3") == 15) {
+            integer = 1;
+        } else if (checkBoard("4") + checkBoard("5") + checkBoard("6") == 15) {
+            integer = 1;
+        } else if (checkBoard("7") + checkBoard("8") + checkBoard("9") == 15) {
+            integer = 1;
+        } else if (checkBoard("1") + checkBoard("4") + checkBoard("7") == 15) {
+            integer = 1;
+        } else if (checkBoard("2") + checkBoard("5") + checkBoard("8") == 15) {
+            integer = 1;
+        } else if (checkBoard("3") + checkBoard("6") + checkBoard("9") == 15) {
+            integer = 1;
+        } else if (checkBoard("1") + checkBoard("5") + checkBoard("9") == 15) {
+            integer = 1;
+        } else if (checkBoard("3") + checkBoard("5") + checkBoard("7") == 15) {
+            integer = 1;
+        }
+        counter++;
+        if (integer == 1) {
+            return 1; //win
+        } else if (counter == 18) {
+            return 2; //tie
+        }
         return 0;
     }
 
@@ -47,18 +73,43 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
 
     @Override
     public void loadSavedString(String toLoad) {
+        Scanner parse = new Scanner(toLoad).useDelimiter(",|\\n");
+        parse.nextLine(); //skips the first line which represents the next players turn
+        try {
+        int number = Integer.parseInt(parse.next());
+        takeTurn(1,1,number);
+        number = Integer.parseInt(parse.next());
+        takeTurn(2,1,number);
+        number = Integer.parseInt(parse.next());
+        takeTurn(3,1,number);
+        number = Integer.parseInt(parse.next());
+        takeTurn(1,2,number);
+        number = Integer.parseInt(parse.next());
+        takeTurn(2,2,number);
+        number = Integer.parseInt(parse.next());
+        takeTurn(3,2,number);
+        number = Integer.parseInt(parse.next());
+        takeTurn(1,3,number);
+        number = Integer.parseInt(parse.next());
+        takeTurn(2,3,number);
+        number = Integer.parseInt(parse.next());
+        takeTurn(3,3,number);
+        } catch (NumberFormatException e) {
+            parse.next();
+        }
     }
 
     public void resetGrid() {
-        takeTurn(1,1," ");
-        takeTurn(2,1," ");
-        takeTurn(3,1," ");
-        takeTurn(1,2," ");
-        takeTurn(2,2," ");
-        takeTurn(3,2," ");
-        takeTurn(1,3," ");
-        takeTurn(2,3," ");
-        takeTurn(3,3," ");
+        //using "88" as a placeholder so you can visualize the board.
+        takeTurn(1,1,88);
+        takeTurn(2,1,88);
+        takeTurn(3,1,88);
+        takeTurn(1,2,88);
+        takeTurn(2,2,88);
+        takeTurn(3,2,88);
+        takeTurn(1,3,88);
+        takeTurn(2,3,88);
+        takeTurn(3,3,88);
     }
 
     public void setTurn(int currentTurn) {
@@ -73,53 +124,20 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
         return nextTurn;
     }
 
-    /*
-     * Method to determine which position on the board the user
-     * wants to play their number. This method will call another method
-     * to actually determine what number they will choose
-     * 
-     *  || METHOD IS TOO MANY LINES!!! FIX LATER ||
-     */
-    public int positionOnBoard(int player) {
-        int positionOnBoard = 0;
-        while(true) {
-            String position; 
-            position = userInput.nextLine().trim();
-            switch(position) {
-                case "1": numberSelect(player, 1);
-                          positionOnBoard = 1;
-                          break;
-                case "2": numberSelect(player, 2);
-                          positionOnBoard = 2;
-                          break;
-                case "3": numberSelect(player, 3);
-                          positionOnBoard = 3;
-                          break;
-                case "4": numberSelect(player, 4);
-                          positionOnBoard = 4;
-                          break;
-                case "5": numberSelect(player, 5);
-                          positionOnBoard = 5;
-                          break;
-                case "6": numberSelect(player, 6);
-                          positionOnBoard = 6;
-                          break;
-                case "7": numberSelect(player, 7);
-                          positionOnBoard = 7;
-                          break;
-                case "8": numberSelect(player, 8);
-                          positionOnBoard = 8;
-                          break;
-                case "9": numberSelect(player, 9);
-                          positionOnBoard = 9;
-                          break;
-                default:
-                    System.out.print("Invalid input. Must be 1 to 9. Try again: ");
-                    continue;                
-            }
-            break;
+    public int checkBoard(String position) {
+        switch(position) {
+            case "1": return Integer.parseInt(getCell(1,1));
+            case "2": return Integer.parseInt(getCell(2,1));
+            case "3": return Integer.parseInt(getCell(3,1));
+            case "4": return Integer.parseInt(getCell(1,2));
+            case "5": return Integer.parseInt(getCell(2,2));
+            case "6": return Integer.parseInt(getCell(3,2));
+            case "7": return Integer.parseInt(getCell(1,3));
+            case "8": return Integer.parseInt(getCell(2,3));
+            case "9": return Integer.parseInt(getCell(3,3));
+            case "S": return 88;
+            default: return 0;
         }
-        return positionOnBoard;
     }
 
     public int numberSelect(int player, int position) {
@@ -129,6 +147,10 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
             number = numberSelectEven(player);
         }
         return position;
+    }
+
+    public int getNumber() {
+        return number;
     }
 
     public int numberSelectOdd(int player) {
@@ -173,6 +195,14 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
                     continue;                
             }
         }
+    }
+
+    public String parser(int player) {
+        parsedBoard = player + "\n"
+        + getCell(1,1) + ',' + getCell(2,1) + ',' + getCell(3,1) + "\n"
+        + getCell(1,2) + ',' + getCell(2,2) + ',' + getCell(3,2) + "\n"
+        + getCell(1,3) + ',' + getCell(2,3) + ',' + getCell(3,3) + "\n";
+        return parsedBoard;
     }
 
     public int selection(int value) {

@@ -37,21 +37,21 @@ public class TicTacToe extends boardgame.BoardGame implements Saveable {
     @Override
     public int getWinner() {
         String winner = "";
-        if (checkBoard("1") == checkBoard("2") && checkBoard("2") == checkBoard("3")) {
+        if (checkBoard("1").equals(checkBoard("2")) && checkBoard("2").equals(checkBoard("3"))) {
             winner = checkBoard("1");
-        } else if (checkBoard("4") == checkBoard("5") && checkBoard("5") == checkBoard("6")) {
+        } else if (checkBoard("4").equals(checkBoard("5")) && checkBoard("5").equals(checkBoard("6"))) {
             winner = checkBoard("4");
-        } else if (checkBoard("7") == checkBoard("8") && checkBoard("8") == checkBoard("9")) {
+        } else if (checkBoard("7").equals(checkBoard("8")) && checkBoard("8").equals(checkBoard("9"))) {
             winner = checkBoard("7");
-        } else if (checkBoard("1") == checkBoard("4") && checkBoard("4") == checkBoard("7")) {
+        } else if (checkBoard("1").equals(checkBoard("4")) && checkBoard("4").equals(checkBoard("7"))) {
             winner = checkBoard("1");
-        } else if (checkBoard("2") == checkBoard("5") && checkBoard("5") == checkBoard("8")) {
+        } else if (checkBoard("2").equals(checkBoard("5")) && checkBoard("5").equals(checkBoard("8"))) {
             winner = checkBoard("2");
-        } else if (checkBoard("3") == checkBoard("6") && checkBoard("6") == checkBoard("9")) {
+        } else if (checkBoard("3").equals(checkBoard("6")) && checkBoard("6").equals(checkBoard("9"))) {
             winner = checkBoard("3");
-        } else if (checkBoard("1") == checkBoard("5") && checkBoard("5") == checkBoard("9")) {
+        } else if (checkBoard("1").equals(checkBoard("5")) && checkBoard("5").equals(checkBoard("9"))) {
             winner = checkBoard("1");
-        } else if (checkBoard("3") == checkBoard("5") && checkBoard("5") == checkBoard("7")) {
+        } else if (checkBoard("3").equals(checkBoard("5")) && checkBoard("5").equals(checkBoard("7"))) {
             winner = checkBoard("3");
         }
         counter++;
