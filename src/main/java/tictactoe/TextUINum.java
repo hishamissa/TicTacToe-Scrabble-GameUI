@@ -99,29 +99,56 @@ public class TextUINum {
 
     public void play() {
         game.resetGrid();
-        int winner = -1;
-        int position = 0;
-        int num = 0;
-        int player = welcomeMessage(); //odd player = 0 || even player = 1
-        System.out.println("\nWelcome to 3x3 Numerical TicTacToe! (Even's vs Odd's!)");
-        System.out.println("Odd's are Player 0  |  Even's are Player 1");
-        System.out.println("Odd numbers go first!\n");
-        while (winner == -1) {
-            System.out.print("Player " + player + ", enter a position on the board from 1 to 9 (Or 'S' to save and quit): ");
-            position = positionOnBoard(player);
-            num = game.getNumber();
-            setPosition(position, num, player);
-            System.out.println(game);
-            if (game.getWinner() == 1) {
-                System.out.println("Winner is Player " + player + "!");
-                winner = 0;
-                //print the player to know who actually won
-            } else if (game.getWinner() == 2) {
-                System.out.println("Tie!");
-                winner = 0;
-            }  //NEXT UP: RESTARTING GAME
-            game.setTurn(player);
-            player = game.getNextTurn();
+        int playAgain = 1;
+        while (playAgain == 1) {
+            int position = 0;
+            int num = 0;
+            int player = welcomeMessage(); //odd player = 0 || even player = 1
+            System.out.println("\nWelcome to 3x3 Numerical TicTacToe! (Even's vs Odd's!)");
+            System.out.println("Odd's are Player 0  |  Even's are Player 1");
+            System.out.println("Odd numbers go first!\n");
+            int winner = -1;
+            while (winner == -1) {
+                System.out.print("Player " + player + ", enter a position on the board" 
+                                         + "from 1 to 9 (Or 'S' to save and quit): ");
+                position = positionOnBoard(player);
+                num = game.getNumber();
+                setPosition(position, num, player);
+                System.out.println(game);
+                if (game.getWinner() == 1) {
+                    System.out.println("Winner is Player " + player + "!");
+                    winner = 0;
+                } else if (game.getWinner() == 2) {
+                    System.out.println("Tie!");
+                    winner = 0;
+                }
+                game.setTurn(player);
+                player = game.getNextTurn();
+            }
+        playAgain = restartGame();
+        }
+    }
+
+    public int restartGame() {
+        int restart = 0;
+        while (true) {
+            System.out.print("Would you like to play again? If so press 1.");
+            System.out.print(" Otherwise press 2: ");
+            int playAgain;
+            playAgain = userInput.nextInt();
+            switch(playAgain) {
+                case 1:
+                    restart = 1;
+                    break;
+                case 2:
+                    restart = 2;
+                    break;
+                default:
+                    System.out.println("Invalid option. Try again.");
+                    continue;
+            }
+            game.resetGrid();
+            return restart;
         }
     }
 

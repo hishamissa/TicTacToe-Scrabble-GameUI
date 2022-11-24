@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class TicTacToe extends boardgame.BoardGame implements Saveable {
 
-    private String nextTurn;
+    private String nextTurn = "O";
     private String parsedBoard;
     private int counter = 0;
 
@@ -26,7 +26,13 @@ public class TicTacToe extends boardgame.BoardGame implements Saveable {
     }
     @Override
     public boolean isDone() {
-        return false;
+        if (getCell(1,1) != " " && getCell(2,1) != " " && getCell(3,1) != " "
+            && getCell(1,2) != " " && getCell(2,2) != " " && getCell(3,2) != " "
+            && getCell(1,3) != " " && getCell(2,3) != " " && getCell(3,3) != " ") {
+            return true;
+        } else {
+            return false;
+        }
     }
     /*
      * Method to retrieve the winner.
@@ -97,6 +103,19 @@ public class TicTacToe extends boardgame.BoardGame implements Saveable {
             default: return "";
         }
     }
+
+    public void restartGrid() {
+        takeTurn(1,1," ");
+        takeTurn(2,1," ");
+        takeTurn(3,1," ");
+        takeTurn(1,2," ");
+        takeTurn(2,2," ");
+        takeTurn(3,2," ");
+        takeTurn(1,3," ");
+        takeTurn(2,3," ");
+        takeTurn(3,3," ");
+    }
+
     /*
      * This method will parse the board and create a 
      * csv delimited string to write to a file

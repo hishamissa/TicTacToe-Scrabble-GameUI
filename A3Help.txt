@@ -20,4 +20,3 @@ Notes from the A3 Help lecture:
 Run A3 using (java -cp build/classes/java/main tictactoe.TextUI)
 
 To-Do:
-Move methods from TextUI to TicTacToe

@@ -76,23 +76,23 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
         Scanner parse = new Scanner(toLoad).useDelimiter(",|\\n");
         parse.nextLine(); //skips the first line which represents the next players turn
         try {
-        int number = Integer.parseInt(parse.next());
+        int number2 = Integer.parseInt(parse.next());
         takeTurn(1,1,number);
-        number = Integer.parseInt(parse.next());
+        number2 = Integer.parseInt(parse.next());
         takeTurn(2,1,number);
-        number = Integer.parseInt(parse.next());
+        number2 = Integer.parseInt(parse.next());
         takeTurn(3,1,number);
-        number = Integer.parseInt(parse.next());
+        number2 = Integer.parseInt(parse.next());
         takeTurn(1,2,number);
-        number = Integer.parseInt(parse.next());
+        number2 = Integer.parseInt(parse.next());
         takeTurn(2,2,number);
-        number = Integer.parseInt(parse.next());
+        number2 = Integer.parseInt(parse.next());
         takeTurn(3,2,number);
-        number = Integer.parseInt(parse.next());
+        number2 = Integer.parseInt(parse.next());
         takeTurn(1,3,number);
-        number = Integer.parseInt(parse.next());
+        number2 = Integer.parseInt(parse.next());
         takeTurn(2,3,number);
-        number = Integer.parseInt(parse.next());
+        number2 = Integer.parseInt(parse.next());
         takeTurn(3,3,number);
         } catch (NumberFormatException e) {
             parse.next();

@@ -139,7 +139,6 @@ public class TextUI {
             resetGrid();
             return restart;
         }
-
     }
 
     public static void main(String[] args) {
