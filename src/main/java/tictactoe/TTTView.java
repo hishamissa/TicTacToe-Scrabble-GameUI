@@ -20,10 +20,12 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
+import java.util.Scanner;
 
 public class TTTView extends JPanel {
     
     private JLabel messageLabel;
+        private JLabel clearMessageLabel;
     private TicTacToe game;
     private JPanel buttonPanel;
     private GameUI menu;
@@ -32,15 +34,82 @@ public class TTTView extends JPanel {
     public TTTView(int wide, int tall, GameUI menuApplication) {
         super();
         setLayout(new BorderLayout());
+        JPanel subPanel = new JPanel();
         menu = menuApplication;
         setGameController(new TicTacToe(wide, tall));
-        messageLabel = new JLabel("Welcome to 3x3 Tic Tac Toe!");
-        add(messageLabel, BorderLayout.NORTH);
+        // messageLabel = new JLabel("    Welcome to 3x3 Tic Tac Toe!");
+        // add(messageLabel, BorderLayout.NORTH);
+        messageLabel("  Welcome to 3x3 Tic Tac Toe! Player X is first.");
         add(buttonGrid(tall,wide), BorderLayout.CENTER);
+        subPanel.add(makeButtonPanelSave(),BorderLayout.SOUTH);
+        subPanel.add(makeButtonPanelLoad(), BorderLayout.SOUTH);
+        add(subPanel, BorderLayout.SOUTH);
+    }
+
+    /*
+     * METHOD IS CURRENTLY PRINTING OVERLAPPED PANELS! 
+     */
+    public void messageLabel(String arguement) {
+        messageLabel = new JLabel(arguement);
+        add(messageLabel, BorderLayout.NORTH);
     }
 
     public void setGameController(TicTacToe controller) {
         this.game = controller;
+    }
+
+    private JPanel makeButtonPanelSave() {
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.add(makeSaveButton());
+        return buttonPanel;
+    }
+
+    private JPanel makeButtonPanelLoad() {
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.add(makeLoadButton());
+        return buttonPanel;
+    }
+
+    private JButton makeLoadButton() {
+        JButton button = new JButton("Load a Previous Game");
+        button.addActionListener(e->loadGame(e));
+        return button;
+    }
+
+    private JButton makeSaveButton() {
+        JButton button = new JButton("Save and Exit");
+        button.addActionListener(e->saveGame(e));
+        return button;
+    }
+
+    private void loadGame(ActionEvent e) {
+        String filename = JOptionPane.showInputDialog("Please enter the name of the file you wish to load in. \n"
+                                                       + "(Ensure to include the extension (.csv)" );
+        if (filename != null) {
+            if (!filename.isEmpty()) {
+                String loadedGame = SaveToFile.load(game, "savedBoard.csv", "assets");
+                String player = loadedGame.substring(0, 1);
+            }
+        }
+    } 
+
+    private void saveGame(ActionEvent e) {
+        String filename = JOptionPane.showInputDialog("Please enter the name of the file you wish to save too. \n"
+                                                       + "(Ensure to include the extension (.csv)" );
+        if (filename != null) {
+            if (!filename.isEmpty()) {
+                String player = game.getNextTurn();
+                /* Swapping player before saving so it knows which turn is next */
+                game.setTurn(player);
+                player = game.getNextTurn();
+                game.parser(player);
+                SaveToFile.save(game, filename, "assets");
+                menu.start(); //sends user back to the menu
+            }
+        }
+
     }
 
     private JPanel buttonGrid(int tall, int wide) {
@@ -64,6 +133,8 @@ public class TTTView extends JPanel {
         String symbol = game.getNextTurn();
         game.setTurn(symbol);
         symbol = game.getNextTurn();
+        
+        messageLabel("Player " + symbol + "'s Turn.");
 
         PositionAwareButton clicked = ((PositionAwareButton)(e.getSource()));
         if (game.takeTurn(clicked.getAcross(), clicked.getDown(), symbol)) {
