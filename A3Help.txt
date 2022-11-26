@@ -17,6 +17,4 @@ Notes from the A3 Help lecture:
     - look at KakuroView for game specific ideas about the GUI
     - look at GameUI for the main frame
 
-Run A3 using (java -cp build/classes/java/main tictactoe.TextUI)
 
-To-Do:

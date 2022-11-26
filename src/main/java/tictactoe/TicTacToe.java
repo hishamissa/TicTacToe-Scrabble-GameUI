@@ -2,28 +2,63 @@ package tictactoe;
 
 import java.util.Scanner;
 
+/**
+ * Class handles playing regular tic tac toe
+ * Extends BoardGame
+ * Implements Saveable
+ */
 public class TicTacToe extends boardgame.BoardGame implements Saveable {
 
     private String nextTurn = "O";
     private String parsedBoard;
     private int counter = 0;
 
+    /**
+     * TicTacToe constructor to start a game
+     * @param wide  boards width (3)
+     * @param tall  boards height (3)
+     */
     public TicTacToe(int wide, int tall) {
         super(wide, tall);
     }
 
-    /* if method in parent class is being changed must use Override */
+    /** 
+     * Method that facilitates the placement of an input on the board 
+     * with String input. Method should be overriden 
+     * to validate input prior to placing the input value.
+     * @param across across index, 1 based
+     * @param down  down index, 1 based
+     * @param input  String input from game
+     * @return boolean  returns true if input was placed false otherwise
+     */
     @Override
     public boolean takeTurn(int across, int down, String input) {
         setValue(across, down, input);
         return true;
 
     }
+
+    /** 
+     * Method that facilitates the placement of an input on the board 
+     * with integer input. Method should be overriden 
+     * to validate input prior to placing the input value.
+     * @param across across index, 1 based
+     * @param down  down index, 1 based
+     * @param input  String input from game
+     * @return boolean  returns true if input was placed false otherwise
+     */
     @Override
     public boolean takeTurn(int across, int down, int input) {
         setValue(across, down, input);
         return true;
     }
+
+    /**
+     * Method to check if the game is done (board is full) by checking
+     * if each cell on the board is no longer storing a blank space (meaning
+     * there is now a player symbol there)
+     * @return boolean  true is board is full, false otherwise
+     */
     @Override
     public boolean isDone() {
         if (getCell(1,1) != " " && getCell(2,1) != " " && getCell(3,1) != " "
@@ -35,11 +70,12 @@ public class TicTacToe extends boardgame.BoardGame implements Saveable {
         }
         return false;
     }
-    /*
+    /**
      * Method to retrieve the winner.
      * Return 1 if X wins
      * Return 2 if O wins
      * Return 0 if Tie
+     * @return int 
      */
     @Override
     public int getWinner() {
@@ -78,6 +114,10 @@ public class TicTacToe extends boardgame.BoardGame implements Saveable {
         return "T";
     }
 
+    /**
+     * Method that swaps the players turn
+     * @param currentTurn String representing the current turn (X or O)
+     */
     public void setTurn(String currentTurn) {
         if (currentTurn == "X") {
             nextTurn = "O";
@@ -86,10 +126,20 @@ public class TicTacToe extends boardgame.BoardGame implements Saveable {
         }
     }
 
+    /**
+     * Method to get the current turn
+     * @return String  returns the current turn symbol (X or O)
+     */
     public String getNextTurn() {
         return nextTurn;
     }
 
+    /**
+     * Method to check if the cell is available or occupied by returning the 
+     * value in that cell
+     * @param position  String representing the position on the board from 1 to 9
+     * @return String  represnting what is stored in the cell we are searching for
+     */
     public String checkBoard(String position) {
         switch(position) {
             case "1": return getCell(1,1);
@@ -105,6 +155,9 @@ public class TicTacToe extends boardgame.BoardGame implements Saveable {
         }
     }
 
+    /**
+     * Method that fills the entire grid with blank spaces
+     */
     public void restartGrid() {
         takeTurn(1,1," ");
         takeTurn(2,1," ");
@@ -117,17 +170,18 @@ public class TicTacToe extends boardgame.BoardGame implements Saveable {
         takeTurn(3,3," ");
     }
 
-    /*
-     * This method will parse the board and create a 
-     * csv delimited string to write to a file
+    /**
+     * Method to get the parsed version of the board
+     * @return String 
      */
     @Override
     public String getStringToSave() {
         return parsedBoard;
     }
-    /*
+    /**
      * Method that takes the loaded game board and parses it
      * and creates the new game board
+     * @param toLoad represnting the string that needs to be parsed into the game grid
      */
     @Override
     public void loadSavedString(String toLoad) {
@@ -152,9 +206,11 @@ public class TicTacToe extends boardgame.BoardGame implements Saveable {
         player = parse.next();
         takeTurn(3,3,player);
     }
-    /*
+    /**
      * Method that parses the board and creates a
-     * csv string representation in parsedBoard
+     * comma seperating string representation in parsedBoard
+     * @param player  representing the current turn so the game knows who played last
+     * @return String storing with the parsed board
      */
     public String parser(String player) {
         parsedBoard = player + "\n"

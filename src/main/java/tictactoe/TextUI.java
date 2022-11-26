@@ -2,6 +2,9 @@ package tictactoe;
 
 import java.util.Scanner;
 
+/**
+ * Class to run the command line version of tic tac toe
+ */
 public class TextUI {
 
     private Scanner userInput = new Scanner(System.in);
@@ -10,6 +13,11 @@ public class TextUI {
                                          //which calls super to make a grid
     private Board board = new Board(3,3);
 
+    /**
+     * Method to print the opening message and ask for a new game
+     * or a loaded game
+     * @return String  representing the first players turn
+     */
     public String welcomeMessage() {
         System.out.println("Welcome to 3x3 Tic Tac Toe!");
         System.out.println("1. Start a new game");
@@ -31,6 +39,9 @@ public class TextUI {
         }
     }
 
+    /**
+     * Method to play the game
+     */
     public void play() {
         int playAgain = 1;
         String player = welcomeMessage();
@@ -59,8 +70,10 @@ public class TextUI {
         }
     }
 
-    /*
-     * Uses users input to set value in grid
+    /**
+     * Uses users input to set value in grid by using the takeTurn() method
+     * Ensures the userInput is valid
+     * @param player 
      */
     public void setBoard(String player) {
         while(true) {
@@ -92,9 +105,10 @@ public class TextUI {
             case "S": saveCase(player);
             default: System.out.println("Invalid input. Try again: ");
                 continue; } break; } }
-    /*
-     * Method is user enters 'S' to save
-     * during the game
+    /**
+     * Method if user enters 'S' to save
+     * during the game. Calls save() method to save the game
+     * @param player
      */
     public void saveCase(String player) {
         game.parser(player);
@@ -106,6 +120,9 @@ public class TextUI {
         System.exit(0);
     }
 
+    /**
+     * Method to set each value the grid to a blank space
+     */
     public void resetGrid() {
         game.takeTurn(1,1," ");
         game.takeTurn(2,1," ");
@@ -118,6 +135,10 @@ public class TextUI {
         game.takeTurn(3,3," ");
     }
 
+    /**
+     * Method to give the user the option to play again after the game is over
+     * @return int  1 if they play again, 2 otherwise
+     */
     public int restartGame() {
         int restart = 0;
         while (true) {
@@ -141,6 +162,10 @@ public class TextUI {
         }
     }
 
+    /**
+     * Main method just runs play()
+     * @param args
+     */
     public static void main(String[] args) {
         TextUI tester = new TextUI();
         tester.play();
