@@ -37,7 +37,7 @@ public class TTTView extends JPanel {
         JPanel subPanel = new JPanel();
         menu = menuApplication;
         setGameController(new TicTacToe(wide, tall));
-        // messageLabel = new JLabel("    Welcome to 3x3 Tic Tac Toe!");
+        messageLabel = new JLabel("");
         // add(messageLabel, BorderLayout.NORTH);
         messageLabel("  Welcome to 3x3 Tic Tac Toe! Player X is first.");
         add(buttonGrid(tall,wide), BorderLayout.CENTER);
@@ -46,11 +46,9 @@ public class TTTView extends JPanel {
         add(subPanel, BorderLayout.SOUTH);
     }
 
-    /*
-     * METHOD IS CURRENTLY PRINTING OVERLAPPED PANELS! 
-     */
     public void messageLabel(String arguement) {
-        messageLabel = new JLabel(arguement);
+        //messageLabel = new JLabel(arguement);
+        messageLabel.setText(arguement);
         add(messageLabel, BorderLayout.NORTH);
     }
 
@@ -59,14 +57,14 @@ public class TTTView extends JPanel {
     }
 
     private JPanel makeButtonPanelSave() {
-        JPanel buttonPanel = new JPanel();
+        buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.add(makeSaveButton());
         return buttonPanel;
     }
 
     private JPanel makeButtonPanelLoad() {
-        JPanel buttonPanel = new JPanel();
+        buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.add(makeLoadButton());
         return buttonPanel;
@@ -86,7 +84,7 @@ public class TTTView extends JPanel {
 
     private void loadGame(ActionEvent e) {
         String filename = JOptionPane.showInputDialog("Please enter the name of the file you wish to load in. \n"
-                                                       + "(Ensure to include the extension (.csv)" );
+                                                       + "(Ensure to include the extension (.csv)");
         if (filename != null) {
             if (!filename.isEmpty()) {
                 String loadedGame = SaveToFile.load(game, "savedBoard.csv", "assets");
@@ -97,7 +95,7 @@ public class TTTView extends JPanel {
 
     private void saveGame(ActionEvent e) {
         String filename = JOptionPane.showInputDialog("Please enter the name of the file you wish to save too. \n"
-                                                       + "(Ensure to include the extension (.csv)" );
+                                                       + "(Ensure to include the extension (.csv)");
         if (filename != null) {
             if (!filename.isEmpty()) {
                 String player = game.getNextTurn();
@@ -121,7 +119,10 @@ public class TTTView extends JPanel {
                     buttons[y][x] = new PositionAwareButton();
                     buttons[y][x].setAcross(x+1);
                     buttons[y][x].setDown(y+1);
-                    buttons[y][x].addActionListener(e->{setSymbol(e); checkGameOver();});
+                    buttons[y][x].addActionListener(e->{
+                                                setSymbol(e); 
+                                                checkGameOver();
+                                                });
                     panel.add(buttons[y][x]);
                 }
             }
@@ -134,11 +135,16 @@ public class TTTView extends JPanel {
         game.setTurn(symbol);
         symbol = game.getNextTurn();
         
-        messageLabel("Player " + symbol + "'s Turn.");
-
         PositionAwareButton clicked = ((PositionAwareButton)(e.getSource()));
-        if (game.takeTurn(clicked.getAcross(), clicked.getDown(), symbol)) {
-            clicked.setText(game.getCell(clicked.getAcross(), clicked.getDown()));
+
+        if (game.getCell(clicked.getAcross(), clicked.getDown()) == " ") {
+            if (game.takeTurn(clicked.getAcross(), clicked.getDown(), symbol)) {
+                clicked.setText(game.getCell(clicked.getAcross(), clicked.getDown()));
+                messageLabel("Player " + symbol + "'s Turn.");
+            }
+        } else {
+            game.setTurn(symbol);
+            symbol = game.getNextTurn();
         }
     }
 
@@ -161,7 +167,7 @@ public class TTTView extends JPanel {
                 game.restartGrid();
                 updateBoard();
             }
-        } else if (game.isDone() == true) {
+        } else if (game.isDone()) {
             choice = gameOver.showConfirmDialog(null, "Tie!", "Play Again?", JOptionPane.YES_NO_OPTION);
             if (choice == JOptionPane.NO_OPTION) {
                 menu.start();

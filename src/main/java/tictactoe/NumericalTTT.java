@@ -24,10 +24,17 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
     @Override
     public boolean takeTurn(int across, int down, int input) {
         setValue(across, down, input);
-        return false;
+        return true;
     }
     @Override
     public boolean isDone() {
+        if (getCell(1,1) != "88" && getCell(2,1) != "88" && getCell(3,1) != "88"
+            && getCell(1,2) != "88" && getCell(2,2) != "88" && getCell(3,2) != "88"
+            && getCell(1,3) != "88" && getCell(2,3) != "88" && getCell(3,3) != "88") {
+               return true;
+        // } else {
+        //     return false;
+        }
         return false;
     }
 

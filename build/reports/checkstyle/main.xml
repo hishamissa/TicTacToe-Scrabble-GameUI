@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.45.1">
+<file name="/Users/hisham/Desktop/CIS_2430/coursework/A3/src/main/java/tictactoe/TTTView.java">
+</file>
 <file name="/Users/hisham/Desktop/CIS_2430/coursework/A3/src/main/java/tictactoe/TextUINum.java">
 <error line="42" column="5" severity="error" message="Method positionOnBoard length is 47 lines (max allowed is 30)." source="com.puppycrawl.tools.checkstyle.checks.sizes.MethodLengthCheck"/>
-<error line="100" column="5" severity="error" message="Method play length is 32 lines (max allowed is 30)." source="com.puppycrawl.tools.checkstyle.checks.sizes.MethodLengthCheck"/>
-<error line="156" column="5" severity="error" message="Method setPosition length is 40 lines (max allowed is 30)." source="com.puppycrawl.tools.checkstyle.checks.sizes.MethodLengthCheck"/>
+<error line="100" column="5" severity="error" message="Method play length is 31 lines (max allowed is 30)." source="com.puppycrawl.tools.checkstyle.checks.sizes.MethodLengthCheck"/>
+<error line="155" column="5" severity="error" message="Method setPosition length is 40 lines (max allowed is 30)." source="com.puppycrawl.tools.checkstyle.checks.sizes.MethodLengthCheck"/>
 </file>
 <file name="/Users/hisham/Desktop/CIS_2430/coursework/A3/src/main/java/tictactoe/Saveable.java">
 </file>
@@ -11,7 +13,13 @@
 </file>
 <file name="/Users/hisham/Desktop/CIS_2430/coursework/A3/src/main/java/tictactoe/NumericalTTT.java">
 </file>
+<file name="/Users/hisham/Desktop/CIS_2430/coursework/A3/src/main/java/tictactoe/NumTTTView.java">
+</file>
+<file name="/Users/hisham/Desktop/CIS_2430/coursework/A3/src/main/java/tictactoe/GameUI.java">
+</file>
 <file name="/Users/hisham/Desktop/CIS_2430/coursework/A3/src/main/java/tictactoe/TextUI.java">
+</file>
+<file name="/Users/hisham/Desktop/CIS_2430/coursework/A3/src/main/java/tictactoe/PositionAwareButton.java">
 </file>
 <file name="/Users/hisham/Desktop/CIS_2430/coursework/A3/src/main/java/tictactoe/Board.java">
 </file>

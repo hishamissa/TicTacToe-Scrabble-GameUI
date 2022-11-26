@@ -13,8 +13,6 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import tictactoe.TTTView;
-
 public class GameUI extends JFrame {
     private JPanel gameContainer;
     private JLabel message;
@@ -22,21 +20,32 @@ public class GameUI extends JFrame {
 
     public GameUI(String title) {
         super();
-        this.setSize(200, 200);
+        JPanel subPanel = new JPanel();
+        this.setSize(300, 100);
         this.setTitle(title);
         gameContainer = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         add(gameContainer, BorderLayout.EAST);
-        add(makeButtonPanel(),BorderLayout.CENTER);
+        subPanel.add(makeButtonPanelTTT(),BorderLayout.CENTER);
+        subPanel.add(makeButtonPanelNumTTT(), BorderLayout.CENTER);
+        add(subPanel, BorderLayout.CENTER);
+        pack();
         //start();
     }
 
-    private JPanel makeButtonPanel() {
+    private JPanel makeButtonPanelTTT() {
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
         buttonPanel.add(makeTTTButton());
+        return buttonPanel;
+    }
+
+    private JPanel makeButtonPanelNumTTT() {
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+        buttonPanel.add(makeNumTTTButton());
         return buttonPanel;
     }
 
@@ -44,6 +53,21 @@ public class GameUI extends JFrame {
         JButton button = new JButton("Play Tic Tac Toe");
         button.addActionListener(e->tictactoe());
         return button;
+    }
+
+    private JButton makeNumTTTButton() {
+        JButton button = new JButton("Play Numerical Tic Tac Toe");
+        button.addActionListener(e->numTicTacToe());
+        return button;
+
+    }
+
+    protected void numTicTacToe() {
+        gameContainer.removeAll();
+        gameContainer.add(new NumTTTView(3,3,this));
+        getContentPane().repaint();
+        getContentPane().revalidate();
+        pack();
     }
 
     protected void tictactoe() {

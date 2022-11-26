@@ -22,7 +22,7 @@ public class TicTacToe extends boardgame.BoardGame implements Saveable {
     @Override
     public boolean takeTurn(int across, int down, int input) {
         setValue(across, down, input);
-        return false;
+        return true;
     }
     @Override
     public boolean isDone() {
@@ -30,9 +30,10 @@ public class TicTacToe extends boardgame.BoardGame implements Saveable {
             && getCell(1,2) != " " && getCell(2,2) != " " && getCell(3,2) != " "
             && getCell(1,3) != " " && getCell(2,3) != " " && getCell(3,3) != " ") {
             return true;
-        } else {
-            return false;
+        // } else {
+        //     return false;
         }
+        return false;
     }
     /*
      * Method to retrieve the winner.
