@@ -3,6 +3,11 @@ package tictactoe;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
+/**
+ * Class handles playing numerical tic tac toe
+ * Extends BoardGame
+ * Implements Saveable
+ */
 public class NumericalTTT extends boardgame.BoardGame implements Saveable {
 
     private Scanner userInput = new Scanner(System.in);
@@ -11,21 +16,51 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
     private int number;
     private int counter = 0;
 
+    /**
+     * Numerical TicTacToe constructor to start a game
+     * @param wide  boards width (3)
+     * @param tall  boards height (3)
+     */
     public NumericalTTT(int wide, int tall) {
         super(wide, tall);
     }
 
+    /** 
+     * Method that facilitates the placement of an input on the board 
+     * with String input. Method should be overriden 
+     * to validate input prior to placing the input value.
+     * @param across across index, 1 based
+     * @param down  down index, 1 based
+     * @param input  String input from game
+     * @return boolean  returns true if input was placed false otherwise
+     */
     @Override
     public boolean takeTurn(int across, int down, String input) {
         setValue(across, down, input);
         return true;
     }
 
+    /** 
+     * Method that facilitates the placement of an input on the board 
+     * with integer input. Method should be overriden 
+     * to validate input prior to placing the input value.
+     * @param across across index, 1 based
+     * @param down  down index, 1 based
+     * @param input  String input from game
+     * @return boolean  returns true if input was placed false otherwise
+     */
     @Override
     public boolean takeTurn(int across, int down, int input) {
         setValue(across, down, input);
         return true;
     }
+
+    /**
+     * Method to check if the game is done (board is full) by checking
+     * if each cell on the board is no longer storing an 88 (meaning
+     * there is now a player symbol there)
+     * @return boolean  true is board is full, false otherwise
+     */
     @Override
     public boolean isDone() {
         if (getCell(1,1) != "88" && getCell(2,1) != "88" && getCell(3,1) != "88"
@@ -43,6 +78,13 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
         return "T";
     }
 
+    /**
+     * Method to retrieve the winner.
+     * Return 1 if there is a winner
+     * Return 2 if a Tie
+     * Return 0 otherwise
+     * @return int 
+     */
     @Override
     public int getWinner() {
         int integer = 0;
@@ -72,12 +114,20 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
         return 0;
     }
 
-
+    /**
+     * Method to get the parsed version of the board
+     * @return String 
+     */
     @Override
     public String getStringToSave() {
         return parsedBoard;
     }
 
+    /**
+     * Method that takes the loaded game board and parses it
+     * and creates the new game board
+     * @param toLoad represnting the string that needs to be parsed into the game grid
+     */
     @Override
     public void loadSavedString(String toLoad) {
         Scanner parse = new Scanner(toLoad).useDelimiter(",|\\n");
@@ -106,6 +156,9 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
         }
     }
 
+    /**
+     * Method that fills the entire grid with 88's
+     */
     public void resetGrid() {
         //using "88" as a placeholder so you can visualize the board.
         takeTurn(1,1,88);
@@ -119,6 +172,10 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
         takeTurn(3,3,88);
     }
 
+    /**
+     * Method that swaps the players turn
+     * @param currentTurn String representing the current turn (0 or 1)
+     */
     public void setTurn(int currentTurn) {
         if (currentTurn == 0) {
             nextTurn = 1;
@@ -127,10 +184,20 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
         }
     }
 
+    /**
+     * Method to get the current turn
+     * @return int  returns the current turn symbol (0 or 1)
+     */
     public int getNextTurn() {
         return nextTurn;
     }
 
+    /**
+     * Method to check if the cell is available or occupied by returning the 
+     * value in that cell
+     * @param position  String representing the position on the board from 1 to 9
+     * @return int  represnting what is stored in the cell we are searching for
+     */
     public int checkBoard(String position) {
         switch(position) {
             case "1": return Integer.parseInt(getCell(1,1));
@@ -147,6 +214,13 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
         }
     }
 
+    /**
+     * Method that calls either the number select for odd or even
+     * numbers depending on who's turn it currently is
+     * @param player
+     * @param position
+     * @return int the position they used
+     */
     public int numberSelect(int player, int position) {
         if (player == 0) {
             number = numberSelectOdd(player);
@@ -156,10 +230,20 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
         return position;
     }
 
+    /**
+     * Method to get the players number they input
+     * @return int returns the number
+     */
     public int getNumber() {
         return number;
     }
 
+    /**
+     * Method to allow the user to enter an odd number
+     * Is only called if the it is player 0's turn (Odd turn)
+     * @param player
+     * @return int  the number they select
+     */
     public int numberSelectOdd(int player) {
         System.out.print("Now enter an odd number (1,3,5,7,9): ");
         while(true) {
@@ -183,6 +267,12 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
         }
     }
 
+    /**
+     * Method to allow the user to enter an even number
+     * Is only called if the it is player 1's turn (Even turn)
+     * @param player
+     * @return int  the number they select
+     */
     public int numberSelectEven(int player) {
         System.out.print("Now enter an even number (2,4,6,8): ");
         while(true) {
@@ -204,6 +294,12 @@ public class NumericalTTT extends boardgame.BoardGame implements Saveable {
         }
     }
 
+    /**
+     * Method that parses the board and creates a
+     * comma seperating string representation in parsedBoard
+     * @param player  representing the current turn so the game knows who played last
+     * @return String storing with the parsed board
+     */
     public String parser(int player) {
         parsedBoard = player + "\n"
         + getCell(1,1) + ',' + getCell(2,1) + ',' + getCell(3,1) + "\n"
