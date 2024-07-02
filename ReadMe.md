@@ -1,6 +1,7 @@
 # Project Title
 
-CIS 2430 Assignment 3. Tic Tac Toe and Numerical Tic Tac Toe Game Suite.
+Tic Tac Toe and Numerical Tic Tac Toe (aka Scrabble) Game Suite.
+CIS 2430
 
 ## Description
 
@@ -16,10 +17,6 @@ and loading previous games and switching between games.
 * gradle build
 * java -cp build/classes/java/main tictactoe.GameUI
 * Output will be a java GUI with the game suite menu
-
-## Limitations
-
-Did not have time to add loading in player statistics unfortunatly
 
 ## Author Information
 
